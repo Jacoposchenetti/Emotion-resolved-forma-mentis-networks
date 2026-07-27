@@ -1,0 +1,9 @@
+group,size,n_fear,pct_fear,example_fear_words
+Students,176,41,23.3,"solitudine, terrore, pericolo, furto, isolamento, codardo"
+Students,127,27,21.3,"diavolo, malattia, urgenza, ospedale, contagio, infermità"
+Students,169,21,12.4,"perdita, disturbo, governo, mamma, maniaco, rasoio"
+Students,74,7,9.5,"rigore, attacco, strana, sfida, avversario, sbagliata"
+Researchers,29,6,20.7,"attack, conflict, force, terrorism, police, abyss"
+Researchers,72,12,16.7,"disturbance, god, challenge, nausea, struggle, remove"
+Researchers,55,7,12.7,"loss, illness, desert, fire, mental, disorder"
+Researchers,92,11,12.0,"blood, disease, confusion, poison, radioactive, hospital"

@@ -1,0 +1,15 @@
+# Core stack — runs the full reproduction using the cached emotion labels
+# committed under results_A1/ (no EmoAtlas needed for that path).
+networkx>=3.0
+scipy>=1.10
+numpy>=1.24
+pandas>=2.0
+matplotlib>=3.7
+openpyxl>=3.1
+fpdf2>=2.7
+
+# OPTIONAL — only needed to regenerate the Plutchik emotion labels from scratch
+# (results_A1/emolabels_*.csv). EmoAtlas hard-pins spaCy==3.7.2 and needs the large
+# spaCy models it_core_news_lg / en_core_web_lg + NLTK WordNet, so it requires a
+# dedicated Python 3.9–3.11 environment. See README "Regenerating emotion labels".
+#   emoatlas==0.1.6

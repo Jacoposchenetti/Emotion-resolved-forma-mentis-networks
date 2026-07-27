@@ -1,0 +1,17 @@
+# Third-party datasets — fetched with download_data.py (not redistributed here;
+# NRC in particular does not permit redistribution).
+data/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Superseded pre-robustness draft (kept out to avoid confusion; see MANUSCRIPT.md)
+DRAFT.md
+
+# Scratch / OS
+_*.png
+Thumbs.db
+.DS_Store
