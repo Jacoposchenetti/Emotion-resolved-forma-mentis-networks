@@ -48,6 +48,17 @@ PDFs. Emotion labels are read from the committed `results_A1/emolabels_*.csv`, s
 **EmoAtlas is not required** for the default path. Individual scripts also run
 standalone (each has a `__main__`).
 
+### Tutorial notebook
+
+**`PAPER_WALKTHROUGH.ipynb`** explains the paper **technique by technique** — the idea, the
+mathematics (LaTeX), a tiny worked example for each method, then the real computation on the
+data. It covers Kendall-τ assortativity, degree-preserving nulls, Plutchik/NRC emotion
+labelling, bootstrap CIs, Louvain modularity, personalised-PageRank spreading activation and
+why it is underpowered, the validated decay-proximity test, degree-stratified nulls,
+equivalence (TOST) testing, Benjamini–Hochberg FDR, and multi-lexicon robustness. It runs
+top to bottom in a couple of minutes (`pip install jupyter`, then open it). Regenerate it
+with `python build_notebook.py`.
+
 ## What is in here
 
 | File | Role |
@@ -62,6 +73,8 @@ standalone (each has a `__main__`).
 | `proximity_fixed.py` | validated distance-based proximity test + injection validation |
 | `revision_analyses.py` | degree-preserving null, common-vocab re-test, TOST equivalence, Louvain stability, BH-FDR |
 | `md_to_pdf.py` | render a Markdown paper to a line-numbered PDF |
+| `PAPER_WALKTHROUGH.ipynb` | technique-by-technique tutorial (math + worked examples), runnable |
+| `build_notebook.py` | regenerates the tutorial notebook |
 | `MANUSCRIPT.md` / `.pdf` | the paper (line-numbered PDF) |
 | `RESPONSE_LETTER.md` / `.pdf` | point-by-point response to a simulated review |
 | `REVIEW.md`, `REPORT.md`, `OUTLINE.md`, `CITATION_CHECK.md` | reproduction report, simulated review, outline, verified citations |
