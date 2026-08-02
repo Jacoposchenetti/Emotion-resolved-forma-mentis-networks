@@ -23,10 +23,14 @@ This folder is the ready-to-submit package.
 9. Preregistration: **None**. Conflict of interest / Funding: **None**.
 10. Submit. PsyArXiv assigns a **DOI** within minutes.
 
-**After you have the DOI**
-- Put the preprint DOI on page 1 of the manuscript (Meta-Psychology requires the preprint to
-  have a DOI), then submit to Meta-Psychology at
-  https://open.lnu.se/index.php/metapsychology following their author guidelines.
+**After you have the DOI (i.e. when you submit to the JOURNAL, not now)**
+- The preprint intentionally does NOT claim "Submitted to Meta-Psychology" — at preprint stage
+  it is not submitted anywhere. Add Meta-Psychology's required first-page statement ONLY when you
+  submit to the journal, together with the preprint DOI. Regenerate the PDF with, on page 1:
+  *"Submitted to Meta-Psychology. Preprint: doi:<your-DOI>. Open peer review and editorial
+  process: https://open.lnu.se/index.php/metapsychology"* — then submit at that URL following
+  their author guidelines. (In this repo: edit the first-page line in `MANUSCRIPT_MP.md` and run
+  `python md_to_pdf.py MANUSCRIPT_MP.md MANUSCRIPT_MP.pdf`.)
 - Optional but recommended for Meta-Psychology's transparency requirements: create an **OSF
   project** that mirrors the GitHub repo (data, code, README, a data dictionary/codebook) and
   link it from the manuscript, since MP asks specifically for an OSF component.

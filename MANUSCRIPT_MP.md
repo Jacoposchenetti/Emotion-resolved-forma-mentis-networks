@@ -5,7 +5,7 @@ Jacopo Schenetti
 *Center for Mind/Brain Sciences (CIMeC), University of Trento, Rovereto, Italy.*
 Correspondence: jschenetti@gmail.com
 
-*Submitted to Meta-Psychology. Peer review is open; the editorial process and contact are at https://open.lnu.se/index.php/metapsychology. Preprint and all code/data: https://github.com/Jacoposchenetti/Emotion-resolved-forma-mentis-networks*
+*Preprint — this manuscript has not yet been peer reviewed. All code and data: https://github.com/Jacoposchenetti/Emotion-resolved-forma-mentis-networks*
 
 ## Abstract
 
