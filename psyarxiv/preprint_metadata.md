@@ -57,7 +57,3 @@ emotion lexicons; spreading activation; equivalence testing
 - Primary data: Stella et al. (2019), OSF https://osf.io/xyfwg/ (CC-BY 4.0)
 
 **Preregistration**  None (non-preregistered reanalysis; stated in the manuscript).
-
-**AI-usage note** (already in the manuscript): analysis code, figures, and a first draft were
-produced with an AI coding assistant under the author's direction; all results are reproducible
-from the released scripts and were verified by the author.

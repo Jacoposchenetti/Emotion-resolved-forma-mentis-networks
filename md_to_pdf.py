@@ -35,6 +35,27 @@ def strip_md(s):
     return s
 
 
+_RUN = re.compile(r"(\*\*.+?\*\*|\*[^*]+?\*|`[^`]+?`)")
+def parse_runs(text):
+    # split a paragraph into (text, style) runs: ** ** -> bold, * * -> italic
+    text = re.sub(r"\[([^\]]+)\]\(([^)]+)\)", r"\1 (\2)", text)
+    runs, pos = [], 0
+    for m in _RUN.finditer(text):
+        if m.start() > pos:
+            runs.append((text[pos:m.start()], ""))
+        tok = m.group(0)
+        if tok.startswith("**"):
+            runs.append((tok[2:-2], "B"))
+        elif tok.startswith("*"):
+            runs.append((tok[1:-1], "I"))
+        else:
+            runs.append((tok[1:-1], ""))
+        pos = m.end()
+    if pos < len(text):
+        runs.append((text[pos:], ""))
+    return runs or [(text, "")]
+
+
 class Doc(FPDF):
     def __init__(self):
         super().__init__(format="A4", unit="mm")
@@ -99,6 +120,74 @@ class Doc(FPDF):
             self.set_xy(LEFT, y + lh)
         self.set_y(self.get_y() + gap_after)
 
+    def emit_rich(self, text, size=10.5, lh=5.0, gap_before=0.0, gap_after=1.4, number=True):
+        # render a paragraph with inline **bold** / *italic* runs, word-wrapped
+        words = []
+        for seg, st in parse_runs(text):
+            for w in seg.split(" "):
+                if w != "":
+                    words.append((w, st))
+        if not words:
+            return
+        if gap_before:
+            self.set_y(self.get_y() + gap_before)
+
+        def wd(word, st):
+            self.set_font("DJ", st, size); return self.get_string_width(word)
+        sp = wd(" ", "")
+
+        def line_w(lw):
+            return sum(wd(w, s) for w, s in lw) + sp * (len(lw) - 1)
+
+        def flush_line(lw):
+            if self.get_y() + lh > PAGE_H - BOT:
+                self._newpage()
+            y = self.get_y()
+            if number and self.numbering:
+                self.lineno += 1
+                self.set_font("DJ", "", 7); self.set_text_color(150)
+                self.set_xy(NUM_X, y + (lh - 3) / 2); self.cell(12, 3, str(self.lineno), align="R")
+                self.set_text_color(0)
+            x = LEFT
+            for w, s in lw:
+                ww = wd(w, s)
+                self.set_xy(x, y); self.cell(ww, lh, w)
+                x += ww + sp
+            self.set_xy(LEFT, y + lh)
+
+        cur = []
+        for w, s in words:
+            if not cur or line_w(cur + [(w, s)]) <= CONTENT_W:
+                cur.append((w, s))
+            else:
+                flush_line(cur); cur = [(w, s)]
+        if cur:
+            flush_line(cur)
+        self.set_y(self.get_y() + gap_after)
+
+    def image_block(self, path, caption):
+        # place an image inline (page-break if it doesn't fit), caption below in italics
+        import matplotlib.image as mpimg
+        if not os.path.isabs(path):
+            path = os.path.join(HERE, path)
+        if not os.path.exists(path):
+            return
+        h, w = mpimg.imread(path).shape[:2]
+        disp_h = CONTENT_W * (h / w)
+        cap_lines = self._wrap(caption, 9, "I")
+        need = 2 + disp_h + 2 + len(cap_lines) * 4.4 + 3
+        if self.get_y() + need > PAGE_H - BOT:
+            self._newpage()
+        y = self.get_y() + 2
+        self.image(path, x=LEFT, y=y, w=CONTENT_W)
+        self.set_xy(LEFT, y + disp_h + 2)
+        for ln in cap_lines:
+            self.set_font("DJ", "I", 9)
+            yy = self.get_y()
+            self.set_xy(LEFT, yy); self.cell(CONTENT_W, 4.4, ln)
+            self.set_xy(LEFT, yy + 4.4)
+        self.set_y(self.get_y() + 3)
+
     def figures(self):
         import matplotlib.image as mpimg
         for cap, path in FIGS:
@@ -120,16 +209,22 @@ def build(src="MANUSCRIPT.md", out="MANUSCRIPT.pdf", with_figures=True):
     with open(os.path.join(HERE, src), encoding="utf-8") as f:
         raw = f.read().split("\n")
     para = []
+    has_inline = [False]
     def flush():
         # reflow accumulated body lines into ONE paragraph (single newlines are not breaks)
         if para:
-            doc.emit(strip_md(" ".join(para)), size=10.5, style="", lh=5.0)
+            doc.emit_rich(" ".join(para), size=10.5, lh=5.0)
             para.clear()
 
     for line in raw:
         s = line.rstrip()
         if not s.strip():
             flush(); doc.set_y(doc.get_y() + 1.6)
+            continue
+        m_img = re.match(r"^!\[(.*)\]\((.*)\)\s*$", s)
+        if m_img:
+            flush(); doc.image_block(m_img.group(2).strip(), strip_md(m_img.group(1).strip()))
+            has_inline[0] = True
             continue
         if s.startswith("# "):
             flush(); doc.emit(strip_md(s[2:]), size=15, style="B", lh=7.2, gap_before=1, gap_after=3)
@@ -144,7 +239,7 @@ def build(src="MANUSCRIPT.md", out="MANUSCRIPT.pdf", with_figures=True):
         else:
             para.append(s.strip())
     flush()
-    if with_figures:
+    if with_figures and not has_inline[0]:
         doc.figures()
     outp = os.path.join(HERE, out)
     doc.output(outp)

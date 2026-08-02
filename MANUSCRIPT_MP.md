@@ -112,7 +112,7 @@ first tried spreading activation as personalised PageRank seeded on each concept
 stationary mass on fear nodes. We subjected this statistic to a **positive control**: injecting
 synthetic edges from a concept into the fear set and checking whether the score rises. It does not
 (Section 3.3), so we replaced it with a distance-based measure from single-source shortest paths,
-a decay-weighted proximity $\text{prox}(c)=\sum_{f\in\text{fear}}\beta^{\,d(c,f)}$ with $\beta=0.5$,
+a decay-weighted proximity, prox(c) = Σ β^d(c,f) summed over fear words f, with β = 0.5,
 which passes the same control. The permutation null is **degree-stratified** (fear-sized samples
 matched to the fear set's degree profile), and we frame the result as an **equivalence test**
 against the injection-calibrated minimum detectable effect (Lakens, 2017), correcting the
@@ -132,6 +132,8 @@ far above its degree-preserving null. *Mathematics* carries 44% negative associa
 reported ~43% (Figure 1), and the English labels correlate with Warriner valence at τ = 0.294 over 1,177
 overlapping words, an overlap all but identical to the paper's 1,173. We are analysing the network
 the original study reported.
+
+![Figure 1. Forma mentis ego-networks of the mathematics cue, coloured by valence (red = negative, green = positive, grey = neutral); the cue is outlined in black. In students (A) mathematics sits in a predominantly negative aura, 44% of its 100 associates being negative; in researchers (B) it does not (0% of 49). A representative sample of associates is shown, with the true valence proportions preserved.](results_A1/fig1_formamentis.png)
 
 ### 3.2 Exploratory: fear is a cohesive emotion, and it replicates across lexicons
 
@@ -153,6 +155,8 @@ Table 1. Fear assortativity across four emotion lexicons (95% CI).
   VAD quadrant (independent) students +0.065 [0.040, 0.095]   researchers +0.067 [0.027, 0.104]
   DepecheMood (independent)  students +0.007 [-0.011, 0.028]  researchers +0.002 [-0.032, 0.041]
 
+![Figure 2. Fear assortativity across four emotion lexicons (bootstrap 95% CI). Within-group cohesion is robust (three of four lexicons, including the independent VAD); the student-expert gap appears only for EmoAtlas.](results_A1/lexicon_robustness.png)
+
 ### 3.3 Exploratory: a spreading-activation test cannot answer the structural question
 
 The obvious way to ask whether STEM concepts sit inside the fear region is spreading activation,
@@ -163,6 +167,8 @@ region still does not move it above significance (Figure 3). A test that cannot 
 manufactured cannot be trusted to report its absence, so we discard it, and with it any "null
 result" it would have produced. This is the paper's first general caution: a diffusion statistic
 in common use needs a power check before a null over it means anything.
+
+![Figure 3. Injection positive control: the discarded PageRank statistic (flat, no power) versus the validated decay-proximity measure (crosses significance at 10-30% of degree).](results_A1/proximity_control_extended.png)
 
 ### 3.4 Exploratory: a validated proximity test, with a degree-preserving null
 
@@ -177,6 +183,8 @@ null positive rather than merely absent: for the hard-science concepts the boots
 proximity interval sits below the detectable-effect threshold (mathematics [−1.2, +1.1] in
 students, [−2.8, −1.1] in researchers). The test has the power to detect a moderate embedding;
 none is there.
+
+![Figure 4. Validated proximity of STEM concepts to fear under a degree-preserving null: no concept is closer than chance in either group, and several are significantly farther (FDR-corrected).](results_A1/proximity_result.png)
 
 ### 3.5 Exploratory: the dissociation and the vocabulary that carries negativity
 
@@ -311,12 +319,4 @@ Van Rensbergen, B., De Deyne, S., & Storms, G. (2015). Examining assortativity i
 
 Warriner, A. B., Kuperman, V., & Brysbaert, M. (2013). Norms of valence, arousal, and dominance for 13,915 English lemmas. Behavior Research Methods, 45(4), 1191-1207. https://doi.org/10.3758/s13428-012-0314-x
 
-## Figures
-
-Figure 1. Forma mentis ego-networks of the mathematics cue, coloured by valence (red = negative, green = positive, grey = neutral); the cue is outlined in black. In students (A) mathematics sits in a predominantly negative aura, 44% of its 100 associates being negative; in researchers (B) it does not (0% of 49). A representative sample of associates is shown, with the true valence proportions preserved.
-
-Figure 2. Fear assortativity across four emotion lexicons (bootstrap 95% CI). Within-group cohesion is robust (three of four lexicons, including the independent VAD); the student-expert gap appears only for EmoAtlas.
-
-Figure 3. Injection positive control: the discarded PageRank statistic (flat, no power) versus the validated decay-proximity measure (crosses significance at 10-30% of degree).
-
-Figure 4. Validated proximity of STEM concepts to fear under a degree-preserving null: no concept is closer than chance in either group, and several are significantly farther (FDR-corrected).
+*Figures 1–4 are embedded in the Results section above, each after the analysis it illustrates.*
