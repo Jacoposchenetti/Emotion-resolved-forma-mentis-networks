@@ -133,7 +133,7 @@ reported ~43% (Figure 1), and the English labels correlate with Warriner valence
 overlapping words, an overlap all but identical to the paper's 1,173. We are analysing the network
 the original study reported.
 
-![Figure 1. Forma mentis ego-networks of the mathematics cue, coloured by valence (red = negative, green = positive, grey = neutral); the cue is outlined in black. In students (A) mathematics sits in a predominantly negative aura, 44% of its 100 associates being negative; in researchers (B) it does not (0% of 49). A representative sample of associates is shown, with the true valence proportions preserved.](results_A1/fig1_formamentis.png)
+![Figure 1. Forma mentis ego-networks of the mathematics cue, coloured by valence (red = negative, green = positive, grey = neutral); the cue is outlined in black. In students (A) mathematics sits in a predominantly negative aura, 44% of its 100 associates being negative; in researchers (B) it does not (0% of 49). All first associates are shown, arranged by valence around the cue, so the coloured arc lengths equal the valence proportions.](results_A1/fig1_formamentis.png)
 
 ### 3.2 Exploratory: fear is a cohesive emotion, and it replicates across lexicons
 
