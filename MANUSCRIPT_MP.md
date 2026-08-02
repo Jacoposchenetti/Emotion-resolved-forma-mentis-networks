@@ -5,7 +5,7 @@ Jacopo Schenetti
 *Center for Mind/Brain Sciences (CIMeC), University of Trento, Rovereto, Italy.*
 Correspondence: jschenetti@gmail.com
 
-*Preprint — this manuscript has not yet been peer reviewed. All code and data: https://github.com/Jacoposchenetti/Emotion-resolved-forma-mentis-networks*
+*Preprint. This manuscript has not yet been peer reviewed. All code and data: https://github.com/Jacoposchenetti/Emotion-resolved-forma-mentis-networks*
 
 ## Abstract
 
@@ -129,7 +129,7 @@ reported 0.116, and researcher neighbourhood clustering τ = 0.324 against 0.323
 values, 0.147 and 0.398, fall within about 0.02 of the reported 0.163 and 0.385, a residual
 consistent with unspecified tie-handling in the original Kendall computation. Every effect stands
 far above its degree-preserving null. *Mathematics* carries 44% negative associates against the
-reported ~43%, and the English labels correlate with Warriner valence at τ = 0.294 over 1,177
+reported ~43% (Figure 1), and the English labels correlate with Warriner valence at τ = 0.294 over 1,177
 overlapping words, an overlap all but identical to the paper's 1,173. We are analysing the network
 the original study reported.
 
@@ -139,7 +139,7 @@ With EmoAtlas, fear assortativity is 0.129 in students and 0.052 in researchers,
 label-shuffle null, and Louvain places that cohesion in stable, thematic modules (existential
 danger, health and death, mental turmoil in students; disease, terrorism and instability in
 experts; modularity 0.52 and 0.58, varying under 0.003 across 50 seeds). Because EmoAtlas inherits
-NRC, we checked three further lexicons (Table 1). Within each group the cohesion holds: an
+NRC, we checked three further lexicons (Table 1, Figure 2). Within each group the cohesion holds: an
 independent valence–arousal quadrant, using human ratings and no NRC information, gives significant
 positive fear assortativity in both groups (students 0.065, researchers 0.067), as does the direct
 NRC list for researchers (0.048); only DepecheMood, whose fear category is the argmax of a
@@ -159,7 +159,7 @@ The obvious way to ask whether STEM concepts sit inside the fear region is sprea
 scoring the personalised-PageRank mass a concept places on fear nodes against random label sets.
 That statistic fails a basic positive control. Seeding activation directly on fear words returns z
 near zero, and injecting as many as thirteen synthetic edges from *mathematics* into the fear
-region still does not move it above significance. A test that cannot see embedding we have
+region still does not move it above significance (Figure 3). A test that cannot see embedding we have
 manufactured cannot be trusted to report its absence, so we discard it, and with it any "null
 result" it would have produced. This is the paper's first general caution: a diffusion statistic
 in common use needs a power check before a null over it means anything.
@@ -172,7 +172,7 @@ effect. Against a degree-preserving null (fear-sized samples matched to the fear
 profile, since fear words tend to be high-degree), no STEM concept in either group is closer to
 fear than chance. Several are significantly *farther*: science, mathematics and physics in
 researchers, and science, statistics, *scuola* and *insegnante* in students, all surviving a
-Benjamini–Hochberg correction across the twenty-two concept tests. An equivalence check makes the
+Benjamini–Hochberg correction across the twenty-two concept tests (Figure 4). An equivalence check makes the
 null positive rather than merely absent: for the hard-science concepts the bootstrapped 90%
 proximity interval sits below the detectable-effect threshold (mathematics [−1.2, +1.1] in
 students, [−2.8, −1.1] in researchers). The test has the power to detect a moderate embedding;
@@ -264,12 +264,6 @@ draft, Writing – review & editing, Visualization.
 
 The author declares no competing interests. No funding was received for this work.
 
-## AI-Usage Disclosure
-
-Data acquisition, analysis code, statistics, figures, and a first manuscript draft were produced
-with an AI coding assistant (Claude) under the author's direction. All numbers are reproducible
-from the released scripts; the author verified the analyses and is responsible for the content.
-
 ## Ethics
 
 Secondary analysis of publicly released, de-identified data; no new human-subjects data were
@@ -319,7 +313,10 @@ Warriner, A. B., Kuperman, V., & Brysbaert, M. (2013). Norms of valence, arousal
 
 ## Figures
 
-Figure 1. Emotion prevalence across the two networks.
+Figure 1. Forma mentis ego-networks of the mathematics cue, coloured by valence (red = negative, green = positive, grey = neutral); the cue is outlined in black. In students (A) mathematics sits in a predominantly negative aura, 44% of its 100 associates being negative; in researchers (B) it does not (0% of 49). A representative sample of associates is shown, with the true valence proportions preserved.
+
 Figure 2. Fear assortativity across four emotion lexicons (bootstrap 95% CI). Within-group cohesion is robust (three of four lexicons, including the independent VAD); the student-expert gap appears only for EmoAtlas.
+
 Figure 3. Injection positive control: the discarded PageRank statistic (flat, no power) versus the validated decay-proximity measure (crosses significance at 10-30% of degree).
+
 Figure 4. Validated proximity of STEM concepts to fear under a degree-preserving null: no concept is closer than chance in either group, and several are significantly farther (FDR-corrected).

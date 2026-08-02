@@ -6,8 +6,11 @@ HERE = os.path.dirname(__file__)
 FDIR = os.path.join(os.path.dirname(matplotlib.__file__), "mpl-data", "fonts", "ttf")
 OUT = os.path.join(HERE, "results_A1")
 FIGS = [
-    ("Figure 1. Emotion prevalence across the two STEM forma mentis networks.",
-     os.path.join(OUT, "prevalence_compare.png")),
+    ("Figure 1. Forma mentis ego-networks of the mathematics cue, coloured by valence "
+     "(red = negative, green = positive, grey = neutral); the cue is outlined in black. In students "
+     "(A) mathematics sits in a predominantly negative aura (44% of its 100 associates negative); in "
+     "researchers (B) it does not (0% of 49). A representative sample is shown, valence proportions "
+     "preserved.", os.path.join(OUT, "fig1_formamentis.png")),
     ("Figure 2. Fear assortativity across four emotion lexicons (bootstrap 95% CI). "
      "Within-group cohesion is robust (3/4 lexicons, incl. the independent VAD); the "
      "student-expert gap appears only for EmoAtlas.", os.path.join(OUT, "lexicon_robustness.png")),
@@ -116,23 +119,31 @@ def build(src="MANUSCRIPT.md", out="MANUSCRIPT.pdf", with_figures=True):
     doc = Doc()
     with open(os.path.join(HERE, src), encoding="utf-8") as f:
         raw = f.read().split("\n")
+    para = []
+    def flush():
+        # reflow accumulated body lines into ONE paragraph (single newlines are not breaks)
+        if para:
+            doc.emit(strip_md(" ".join(para)), size=10.5, style="", lh=5.0)
+            para.clear()
+
     for line in raw:
         s = line.rstrip()
         if not s.strip():
-            doc.set_y(doc.get_y() + 1.6)
+            flush(); doc.set_y(doc.get_y() + 1.6)
             continue
         if s.startswith("# "):
-            doc.emit(strip_md(s[2:]), size=15, style="B", lh=7.2, gap_before=1, gap_after=3)
+            flush(); doc.emit(strip_md(s[2:]), size=15, style="B", lh=7.2, gap_before=1, gap_after=3)
         elif s.startswith("## "):
-            doc.emit(strip_md(s[3:]), size=12.5, style="B", lh=6.0, gap_before=3, gap_after=1.6)
+            flush(); doc.emit(strip_md(s[3:]), size=12.5, style="B", lh=6.0, gap_before=3, gap_after=1.6)
         elif s.startswith("### "):
-            doc.emit(strip_md(s[4:]), size=11, style="B", lh=5.6, gap_before=2, gap_after=1.2)
+            flush(); doc.emit(strip_md(s[4:]), size=11, style="B", lh=5.6, gap_before=2, gap_after=1.2)
         elif re.match(r"^\s{2,}\S", line):           # preformatted table row
-            doc.emit(line.strip(), size=8, mono=True, lh=4.4, gap_after=0.2)
+            flush(); doc.emit(line.strip(), size=8, mono=True, lh=4.4, gap_after=0.2)
         elif s.strip().startswith("*") and s.strip().endswith("*"):
-            doc.emit(strip_md(s), size=9, style="I", lh=4.6, gap_after=1.4)
+            flush(); doc.emit(strip_md(s), size=9, style="I", lh=4.6, gap_after=1.4)
         else:
-            doc.emit(strip_md(s), size=10.5, style="", lh=5.0)
+            para.append(s.strip())
+    flush()
     if with_figures:
         doc.figures()
     outp = os.path.join(HERE, out)
